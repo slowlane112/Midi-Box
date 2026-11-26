@@ -1,0 +1,150 @@
+# Built-in Learn songs. Arrangements written for MIDI Box from public-domain works.
+#
+# song: id | title | composer | level (1 beginner .. 4 advanced) | bpm (quarter notes) | time
+# rh: / rh2: / lh: / lh2:   voices of the right and left hand; several lines of one voice join up
+# Notes: C4 (middle C), F#5, Bb3; chords with +: C4+E4+G4; rest: r
+# Lengths after a colon: w=4 beats, h=2, q=1, e=1/2, s=1/4, t=1/3 (triplet eighth), x=1/6
+#   a dot adds half: q. = 1.5.  A note without a length keeps the previous one.
+# | ends a bar; the generator checks every bar is exactly one bar long.
+# pattern bach: n1 n2 n3 n4 n5 | ...   expands to Bach's Prelude in C figure (both hands).
+
+song: twinkle | Twinkle Twinkle Little Star | Traditional | 1 | 100 | 4/4
+rh: C4:q C4 G4 G4 | A4 A4 G4:h | F4:q F4 E4 E4 | D4 D4 C4:h |
+rh: G4:q G4 F4 F4 | E4 E4 D4:h | G4:q G4 F4 F4 | E4 E4 D4:h |
+rh: C4:q C4 G4 G4 | A4 A4 G4:h | F4:q F4 E4 E4 | D4 D4 C4:h |
+lh: C3:w | F3:h C3 | F3:h C3 | G2:h C3 |
+lh: C3:h F3 | C3:h G2 | C3:h F3 | C3:h G2 |
+lh: C3:w | F3:h C3 | F3:h C3 | G2:h C3 |
+end
+
+song: ode | Ode to Joy | Beethoven | 1 | 100 | 4/4
+rh: E4:q E4 F4 G4 | G4 F4 E4 D4 | C4 C4 D4 E4 | E4:q. D4:e D4:h |
+rh: E4:q E4 F4 G4 | G4 F4 E4 D4 | C4 C4 D4 E4 | D4:q. C4:e C4:h |
+rh: D4:q D4 E4 C4 | D4:q E4:e F4 E4:q C4 | D4:q E4:e F4 E4:q D4 | C4:q D4 G3:h |
+rh: E4:q E4 F4 G4 | G4 F4 E4 D4 | C4 C4 D4 E4 | D4:q. C4:e C4:h |
+lh: C3:w | G2:w | C3:w | G2:w |
+lh: C3:w | G2:w | C3:w | G2:h C3 |
+lh: G2:w | G2:h C3 | G2:w | C3:h G2 |
+lh: C3:w | G2:w | C3:w | G2:h C3 |
+end
+
+song: lullaby | Brahms' Lullaby | Brahms | 1 | 84 | 3/4
+rh: r:h E4:e E4 | G4:h E4:e E4 | G4:h E4:e G4 | C5:q B4:q. A4:e |
+rh: A4:q G4 D4:e E4 | F4:q D4 D4:e E4 | F4:h D4:e F4 | B4:e A4 G4:q B4 |
+rh: C5:h C4:e C4 | C5:h A4:e F4 | G4:h E4:e C4 | F4:q G4 A4 |
+rh: G4:h C4:e C4 | C5:h A4:e F4 | G4:h E4:e C4 | F4:q E4 D4 | C4:h. |
+lh: r:h. | C3+G3:h. | C3+G3:h. | F2+C3:h. |
+lh: C3+G3:h. | G2+D3:h. | G2+D3:h. | G2+F3:h. |
+lh: C3+G3:h. | F2+C3:h. | C3+G3:h. | F2+C3:h. |
+lh: C3+G3:h. | F2+C3:h. | C3+G3:h. | G2+F3:h. | C3+G3:h. |
+end
+
+song: greensleeves | Greensleeves | Traditional | 1 | 90 | 3/4
+rh: r:h A4:q | C5:h D5:q | E5:q. F5:e E5:q | D5:h B4:q |
+rh: G4:q. A4:e B4:q | C5:h A4:q | A4:q. G#4:e A4:q | B4:h G#4:q |
+rh: E4:h A4:q | C5:h D5:q | E5:q. F5:e E5:q | D5:h B4:q |
+rh: G4:q. A4:e B4:q | C5:q. B4:e A4:q | G#4:q. F#4:e G#4:q | A4:h. |
+lh: r:h. | A2+E3:h. | C3+G3:h. | G2+D3:h. |
+lh: E2+B2:h. | A2+E3:h. | F2+C3:h. | E2+B2:h. |
+lh: E2+B2:h. | A2+E3:h. | C3+G3:h. | G2+D3:h. |
+lh: E2+B2:h. | A2+E3:h. | E2+B2:h. | A2+E3:h. |
+end
+
+song: minuet | Minuet in G | Petzold | 2 | 112 | 3/4
+rh: D5:q G4:e A4 B4 C5 | D5:q G4 G4 | E5:q C5:e D5 E5 F#5 | G5:q G4 G4 |
+rh: C5:q D5:e C5 B4 A4 | B4:q C5:e B4 A4 G4 | F#4:q G4:e A4 B4 G4 | A4:h. |
+rh: D5:q G4:e A4 B4 C5 | D5:q G4 G4 | E5:q C5:e D5 E5 F#5 | G5:q G4 G4 |
+rh: C5:q D5:e C5 B4 A4 | B4:q C5:e B4 A4 G4 | A4:q B4:e A4 G4 F#4 | G4:h. |
+lh: G3+B3:h A3:q | B3:h. | C4:h. | B3:h. |
+lh: A3:h. | G3:h. | D4:q B3 G3 | D3:h. |
+lh: G3+B3:h A3:q | B3:h. | C4:h. | B3:h. |
+lh: A3:h. | G3:h. | C4:q D4 D3 | G3:h G2:q |
+end
+
+song: canon | Canon in D (simplified) | Pachelbel | 2 | 66 | 4/4
+rh: F#5:h E5 | D5:h C#5 | B4:h A4 | B4:h C#5 |
+rh: D5:h C#5 | B4:h A4 | G4:h F#4 | G4:h E4 |
+rh: D4:q F#4 A4 G4 | F#4 D4 F#4 E4 | D4 B3 D4 A4 | G4 B4 A4 G4 |
+rh: F#4 D4 E4 C#5 | D5 F#5 A5 A4 | B4 G4 A4 F#4 | D4:h D5:h |
+lh: D3+A3:h A2+E3 | B2+F#3:h F#2+C#3 | G2+D3:h D2+A2 | G2+D3:h A2+E3 |
+lh: D3+A3:h A2+E3 | B2+F#3:h F#2+C#3 | G2+D3:h D2+A2 | G2+D3:h A2+E3 |
+lh: D3+A3:h A2+E3 | B2+F#3:h F#2+C#3 | G2+D3:h D2+A2 | G2+D3:h A2+E3 |
+lh: D3+A3:h A2+E3 | B2+F#3:h F#2+C#3 | G2+D3:h D2+A2 | G2+D3:h A2+E3 |
+end
+
+song: elise | Für Elise (theme) | Beethoven | 2 | 66 | 3/8
+rh: r:q E5:s D#5 | E5:s D#5 E5 B4 D5 C5 | A4:e r:s C4 E4 A4 | B4:e r:s E4 G#4 B4 |
+rh: C5:e r:s E4 E5 D#5 | E5:s D#5 E5 B4 D5 C5 | A4:e r:s C4 E4 A4 | B4:e r:s E4 C5 B4 |
+rh: A4:e r:e E5:s D#5 | E5:s D#5 E5 B4 D5 C5 | A4:e r:s C4 E4 A4 | B4:e r:s E4 G#4 B4 |
+rh: C5:e r:s E4 E5 D#5 | E5:s D#5 E5 B4 D5 C5 | A4:e r:s C4 E4 A4 | B4:e r:s E4 C5 B4 | A4:q. |
+lh: r:q. | r:q. | A2:s E3 A3 r:s r:e | E2:s E3 G#3 r:s r:e |
+lh: A2:s E3 A3 r:s r:e | r:q. | A2:s E3 A3 r:s r:e | E2:s E3 G#3 r:s r:e |
+lh: A2:s E3 A3 r:s r:e | r:q. | A2:s E3 A3 r:s r:e | E2:s E3 G#3 r:s r:e |
+lh: A2:s E3 A3 r:s r:e | r:q. | A2:s E3 A3 r:s r:e | E2:s E3 G#3 r:s r:e | A2:s E3 A3 r:s r:e |
+end
+
+song: prelude | Prelude in C | J.S. Bach | 3 | 66 | 4/4
+pattern bach: C4 E4 G4 C5 E5 | C4 D4 A4 D5 F5 | B3 D4 G4 D5 F5 | C4 E4 G4 C5 E5 |
+pattern bach: C4 E4 A4 E5 A5 | C4 D4 F#4 A4 D5 | B3 D4 G4 D5 G5 | B3 C4 E4 G4 C5 |
+pattern bach: A3 C4 E4 G4 C5 | D3 A3 D4 F#4 C5 | G3 B3 D4 G4 B4 | G3 Bb3 E4 G4 C#5 |
+pattern bach: F3 A3 D4 A4 D5 | F3 Ab3 D4 F4 B4 | E3 G3 C4 G4 C5 | E3 F3 A3 C4 F4 |
+pattern bach: D3 F3 A3 C4 F4 | G2 D3 G3 B3 F4 | C3 E3 G3 C4 E4 |
+rh: E4+G4+C5:w |
+lh: C3+C4:w |
+end
+
+song: gymnopedie | Gymnopédie No. 1 | Satie | 3 | 72 | 3/4
+rh: r:h. | r:h. | r:h. | r:h. |
+rh: r:q F#5 A5 | G5:q F#5 C#5 | B4:q C#5 D5 | A4:h. |
+rh: F#4:h. | F#4:h. | r:q F#5 A5 | G5:q F#5 C#5 |
+rh: B4:q C#5 D5 | A4:h. | C#5:h. | F#5:h. | E5:h. |
+lh: G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h | G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h |
+lh: G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h | G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h |
+lh: G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h | G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h |
+lh: G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h | G2:q B3+D4+F#4:h | D2:q A3+C#4+F#4:h | G2:q B3+D4+F#4:h |
+end
+
+song: entertainer | The Entertainer (simplified) | Joplin | 3 | 76 | 2/4
+rh: r:q r:e D4:s D#4 | E4:s C5:e E4:s C5:e E4:s C5:s | C5:q r:e C5:s D5 | D#5:s E5 C5 D5 E5:e B4:s D5 |
+rh: C5:q r:e D4:s D#4 | E4:s C5:e E4:s C5:e E4:s C5:s | C5:q r:e A4:s G4 | F#4:s A4 C5 E5:e D5:s C5 A4 |
+rh: D5:q r:e D4:s D#4 | E4:s C5:e E4:s C5:e E4:s C5:s | C5:q r:e C5:s D5 | D#5:s E5 C5 D5 E5:e B4:s D5 |
+rh: C5:q r:e C5:s D5 | E5:s C5 D5 E5:e C5:s D5 C5 | E5:s C5 D5 E5:e C5:s D5 C5 | C5:q r |
+lh: r:h | C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 G2 B2+D3+F3 |
+lh: C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 A2 E3+A3+C4 | D3:e F#3+A3+C4 D3 F#3+A3+C4 |
+lh: G2:e B2+D3+F3 G2 B2+D3+F3 | C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 G2 E3+G3+C4 | C3:e E3+G3+C4 G2 B2+D3+F3 |
+lh: C3:e E3+G3+C4 G2 E3+G3+C4 | G2:e B2+D3+F3 G2 B2+D3+F3 | G2:e B2+D3+F3 G2 B2+D3+F3 | C3+C4:q r |
+end
+
+song: turkish | Turkish March (theme) | Mozart | 3 | 120 | 2/4
+rh: r:q B4:s A4 G#4 A4 | C5:q D5:s C5 B4 C5 | E5:q F5:s E5 D#5 E5 | B5:s A5 G#5 A5 B5 A5 G#5 A5 |
+rh: C6:q A5:e C6 | B5:e A5 G5 A5 | B5:e A5 G5 A5 | B5:e A5 G5 F#5 |
+rh: E5:q B4:s A4 G#4 A4 | C5:q D5:s C5 B4 C5 | E5:q F5:s E5 D#5 E5 | B5:s A5 G#5 A5 B5 A5 G#5 A5 |
+rh: C6:q A5:e C6 | B5:e A5 G5 A5 | B5:e A5 G#5 B5 | A5:q r |
+lh: r:h | A3:e C4+E4 C4+E4 C4+E4 | A3:e C4+E4 C4+E4 C4+E4 | A3:e C4+E4 A3 C4+E4 |
+lh: A3:e C4+E4 C4+E4 C4+E4 | E3:e G3+B3 G3+B3 G3+B3 | C3:e E3+G3 E3+G3 E3+G3 | B2:e D#3+F#3 D#3+F#3 D#3+F#3 |
+lh: E3:e G#3+B3 G#3+B3 G#3+B3 | A3:e C4+E4 C4+E4 C4+E4 | A3:e C4+E4 C4+E4 C4+E4 | A3:e C4+E4 A3 C4+E4 |
+lh: A3:e C4+E4 C4+E4 C4+E4 | E3:e G3+B3 G3+B3 G3+B3 | E3:e G#3+B3 E3 G#3+B3 | A2+A3:q r |
+end
+
+# ---- From MIDI files (tools/learn_midi/), typeset by the Mutopia Project ----
+# Each comes twice: "easy" (melody + one bass note a beat) and the full score.
+
+song: clair_easy | Clair de Lune (easy) | Debussy | 3 | 66 | 9/8
+import: learn_midi/debussy_clair_de_lune.mid | 1 | 2 | easy
+credit: Mutopia Project, public domain
+end
+
+song: moon_easy | Moonlight Sonata (easy) | Beethoven | 3 | 54 | 2/2
+import: learn_midi/beethoven_moonlight_1.mid | 1 | 2 | easy
+credit: Mutopia Project, CC BY-SA 2.5
+end
+
+song: clair | Clair de Lune | Debussy | 4 | 66 | 9/8
+import: learn_midi/debussy_clair_de_lune.mid | 1 | 2 | full
+credit: Mutopia Project, public domain
+end
+
+song: moon | Moonlight Sonata (1st mvt) | Beethoven | 4 | 54 | 2/2
+import: learn_midi/beethoven_moonlight_1.mid | 1 | 2 | full
+credit: Mutopia Project, CC BY-SA 2.5
+end

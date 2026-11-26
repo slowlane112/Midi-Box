@@ -1,0 +1,7 @@
+#pragma once
+typedef void *SemaphoreHandle_t;
+SemaphoreHandle_t xSemaphoreCreateBinary(void);
+SemaphoreHandle_t xSemaphoreCreateMutex(void);
+BaseType_t xSemaphoreTake(SemaphoreHandle_t, TickType_t);
+BaseType_t xSemaphoreGive(SemaphoreHandle_t);
+BaseType_t xSemaphoreGiveFromISR(SemaphoreHandle_t, BaseType_t *);

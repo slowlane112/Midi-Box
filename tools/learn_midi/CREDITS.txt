@@ -1,0 +1,17 @@
+Source MIDI files for the built-in Learn songs (read by tools/learn_songgen.py).
+
+debussy_clair_de_lune.mid
+  Debussy, Suite bergamasque: Clair de Lune.
+  Typeset by the Mutopia Project (www.mutopiaproject.org) with GNU LilyPond. Public domain.
+
+beethoven_moonlight_1.mid
+  Beethoven, Piano Sonata No. 14 "Moonlight", 1st movement.
+  Typeset by the Mutopia Project (www.mutopiaproject.org) with GNU LilyPond.
+  Licensed under Creative Commons Attribution-ShareAlike 2.5.
+  The built-in "moon" and "moon_easy" songs are adaptations of this file and are shared
+  under the same licence.
+
+Both songs are built twice: "full" keeps every note of the upper and lower staves;
+"easy" keeps the right-hand melody and the lowest left-hand note of each beat.
+Tempo is one fixed value per song (Clair de Lune 66, Moonlight 54 quarter notes a minute);
+use Speed in the setup screen to slow down.

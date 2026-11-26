@@ -1,0 +1,40 @@
+Send files to the MIDI Box over Bluetooth (Linux and Windows)
+=============================================================
+
+On the box: Home > Transfer. Then send from the PC; press 8 on the box to accept each file
+(7 declines). Files land in /sdcard/downloads. You can send several files at once.
+
+Linux (Mint / Nemo)
+-------------------
+    mkdir -p ~/scripts && cp midi_box_transfer.py ~/scripts/
+    python3 ~/scripts/midi_box_transfer.py --install
+    nemo -q
+Right-click files > "Send to MIDI Box". Progress and results come as desktop notifications.
+(--install replaces the old transfer_to_midi_box.nemo_action; flock is no longer needed.)
+
+Windows 10 / 11
+---------------
+1. Install Python from python.org (tick "Add python.exe to PATH").
+2. In a Command Prompt:
+       py C:\path\to\midi_box_transfer.py --install
+   --install also sets up the Bluetooth library (bleak) right away, so any problem shows
+   in that window. If it says your Python is too new for bleak, run  py install 3.13
+   and then --install again; the script finds and uses that Python.
+3. Right-click files in Explorer > Send to > "MIDI Box"
+   (Windows 11: Show more options > Send to). A window shows the progress.
+No need to pair the box in Windows Bluetooth settings.
+
+Bluetooth library (bleak)
+-------------------------
+Nothing to install by hand. The script uses bleak from any Python on the machine that has
+it; if none does, it installs it once into its own folder (needs internet the first time):
+  Linux:   ~/.local/share/midi_box_transfer/
+  Windows: %LOCALAPPDATA%\midi_box_transfer\
+
+Log
+---
+The last transfer is logged in midi_box_transfer.log, next to the script.
+
+Command line (both)
+-------------------
+    python3 midi_box_transfer.py song.mid other.mid
