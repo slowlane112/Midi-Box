@@ -499,11 +499,13 @@ main board in their own clipped bundle.*
 
    **Windows**
    ```
-   esptool.exe --chip esp32s3 write-flash 0x0 "Midi_Box_*.bin"
+   esptool.exe --chip esp32s3 write_flash 0x0 "Midi_Box_x.x.x.bin"
    ```
+   Replace `Midi_Box_x.x.x.bin` with the name of your file.
+
    **Linux**
    ```
-   ./esptool --chip esp32s3 write-flash 0x0 Midi_Box_*.bin
+   ./esptool --chip esp32s3 write_flash 0x0 Midi_Box_*.bin
    ```
    If esptool can't find the box, add the `--port` option, for example `--port COM5` on Windows or
    `--port /dev/ttyACM0` on Linux.
