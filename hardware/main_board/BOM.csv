@@ -1,0 +1,17 @@
+Qty,Refs,Value,Part,Footprint
+3,"C1 C2 C3",100n,Ceramic capacitor,Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.54mm
+2,"D1 D2",1N4148,Diode,Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal
+4,"H1 H2 H3 H4",M2,M2 mounting hole (no part),MountingHole:MountingHole_2.5mm
+2,"IC1 IC2",6N137,Optocoupler (DIP-8, use a socket),Package_DIP:DIP-8_W7.62mm_Socket
+1,"IC3",SN74HCT14N,Hex Schmitt inverter (DIP-14, use a socket),Package_DIP:DIP-14_W7.62mm_Socket
+3,"J1 J3 J10",1x4 female header,Female 2.54 mm header, straight,Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical
+2,"J2 J9",1x6 female header,Female 2.54 mm header, straight,Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical
+2,"J4 J6",1x3 female header,Female 2.54 mm header, straight,Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical
+5,"J5 J11 J12 J13 J14",1x2 female header,Female 2.54 mm header, straight,Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical
+2,"J7 J8",1x8 female header,Female 2.54 mm header, straight,Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical
+1,"Q1",AO3401A,P-channel MOSFET SOT-23,Package_TO_SOT_SMD:SOT-23
+4,"R1 R2 R4 R6",10k,Resistor 1/4 W,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+6,"R3 R5 R7 R8 R9 R10",220,Resistor 1/4 W,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+1,"U1",ESP32-S3-DevKitC-1 N16R8,ESP32-S3 dev board,MidiBox:ESP32-S3-DevKitC-1_2x22_W27.94mm
+2,,DIP-8 IC socket,Optional,
+1,,DIP-14 IC socket,Optional,
