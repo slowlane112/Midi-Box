@@ -52,6 +52,6 @@ echo "13. Learn exercises, Note Reading, Ear Training, practice time: spelling, 
 gcc -std=gnu17 -O1 -w $INC $T/test_learn_ex.c $M/learn/ln_engine.c $M/learn/ln_song.c $M/learn/ln_store.c $M/learn/ln_builtin.c $M/learn/ln_ex.c $M/learn/ln_nr.c $M/learn/ln_ear.c $M/learn/ln_ui.c $M/ui/gfx.c $M/ui/fonts/*.c $M/ui/generated/*.c $M/ui/theme.c $T/host_sem.c -o $O/test_learn_ex -lm
 $O/test_learn_ex | tail -1
 $O/test_learn_files $O/learn_mid | tail -1
-echo "14. Visualiser button 11: every list ends with Cycle, its heading stays, colours change every 8 s"
+echo "14. Visualiser buttons: 11 ends with Cycle, its heading stays, colours change every 8 s, Shift + 10 / 11 go back"
 gcc -std=gnu17 -O1 -w $INC $T/test_cycle.c $M/ui/viz.c $M/ui/theme.c $M/midi/monitor.c $M/viz/*.c $M/ui/gfx.c $M/ui/fonts/*.c $M/ui/generated/icons.c -lm -o $O/test_cycle
 $O/test_cycle | tail -1

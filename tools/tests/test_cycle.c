@@ -1,5 +1,5 @@
-/* Button 11 on every visualiser: its list ends with Cycle, the "Cycle" heading stays up,
- * and the automatic colour changes show no heading. */
+/* Buttons 10 and 11 on every visualiser: 11 ends with Cycle, the "Cycle" heading stays,
+ * the automatic colour changes show no heading, and Shift + 10 / 11 go back. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,7 +28,7 @@ int main(void)
         g_settings.viz = (uint8_t)m; g_settings.viz_col[m] = 0; viz_step(0); frames(&g, 3);
         int presses = 0; bool found = false;
         for (; presses < 12 && !found; presses++) {
-            viz_colour(); frames(&g, 1);
+            viz_colour(1); frames(&g, 1);
             found = strstr(viz_heading(), "Cycle") != NULL;
         }
         frames(&g, 60);   /* 1 s later the Cycle heading is still the one shown (or gone), not a colour */
@@ -41,6 +41,32 @@ int main(void)
         printf("  %-18s %s after %d presses%s\n", viz_name(), found ? "Cycle" : "no Cycle", presses, ok ? "" : "  FAIL");
         fails += !ok;
     }
+    /* Shift + 11 goes back: from the first colour it wraps to Cycle, and Piano skips White */
+    for (int m = 0; m < 14; m++) {
+        if (m == 8) continue;   /* Psychedelic: its own colours */
+        g_settings.viz = (uint8_t)m; g_settings.viz_col[m] = 0; viz_step(0); frames(&g, 3);
+        viz_colour(-1); frames(&g, 1);
+        bool cyc = strstr(viz_heading(), "Cycle") != NULL;
+        viz_colour(-1); frames(&g, 1);
+        int c = g_settings.viz_col[m];
+        bool ok = cyc && !(m == 0 && c == 7) && (m != 0 || c == 6);
+        if (!ok) printf("  %-18s back from the first colour: %s, then %d  FAIL\n", viz_name(), cyc ? "Cycle" : "not Cycle", c);
+        fails += !ok;
+        viz_colour(1); frames(&g, 1);
+        ok = strstr(viz_heading(), "Cycle") != NULL;
+        if (!ok) printf("  %-18s forward again does not reach Cycle  FAIL\n", viz_name());
+        fails += !ok;
+    }
+    /* Shift + 10 goes back through the options */
+    for (int m = 0; m < 14; m++) {
+        g_settings.viz = (uint8_t)m; g_settings.viz_opt[m] = 0; viz_step(0);
+        viz_option(-1); int back = g_settings.viz_opt[m];
+        viz_option(1); int again = g_settings.viz_opt[m];
+        bool ok = again == 0 && back != 0 || (back == 0 && again == 0);
+        if (!ok) printf("  %-18s option back %d then forward %d  FAIL\n", viz_name(), back, again);
+        fails += !ok;
+    }
+    printf(" Shift + 10 and Shift + 11 go back%s\n", fails ? "" : ": ok");
     printf(fails ? "%d FAILED\n" : "all passed\n", fails);
     return fails != 0;
 }

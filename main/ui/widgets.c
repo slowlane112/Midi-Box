@@ -4,6 +4,7 @@
 #include "widgets.h"
 
 static const int s_soft_cx[5] = { 22, 91, 160, 229, 298 };   /* centre of buttons 4..8 */
+#define SOFT_EDGE 4   /* smallest gap between a label and the screen edge */
 
 static char s_toast[48];
 static uint32_t s_toast_until;
@@ -86,15 +87,21 @@ void w_softkeys(gfx_t *g, const char *const labels[5], bool shift)
             shape(g, k + 1, cx, SOFT_Y + 6, col);
             continue;
         }
-        int x0 = cx - SOFT_W / 2;
-        if (x0 < 0) {
-            x0 = 0;
+        /* centre the label on its button; only move it in if that would bring the
+         * text closer than SOFT_EDGE px to the edge of the screen */
+        int tw = gfx_text_width(&font_main, k);
+        if (tw > SOFT_W) {
+            tw = SOFT_W;
         }
-        if (x0 > g->w - SOFT_W) {
-            x0 = g->w - SOFT_W;
+        int x0 = cx - tw / 2;
+        if (x0 < SOFT_EDGE) {
+            x0 = SOFT_EDGE;
+        }
+        if (x0 + tw > g->w - SOFT_EDGE) {
+            x0 = g->w - SOFT_EDGE - tw;
         }
         uint16_t c = (!shift && !strncmp(k, "Rec", 3)) ? C_REC : col;
-        gfx_text_box(g, &font_main, x0, SOFT_Y + 4, SOFT_W, ALIGN_CENTER, k, c);
+        gfx_text_box(g, &font_main, x0, SOFT_Y + 4, tw, ALIGN_LEFT, k, c);
     }
 }
 
@@ -234,4 +241,88 @@ void w_stars(gfx_t *g, int x, int cy, int r, int n, int lit, uint16_t on, uint16
     for (int i = 0; i < n; i++) {
         w_star(g, x + r + i * (r * 2 + r / 2 + 1), cy, r, i < lit ? on : off);
     }
+}
+
+/* ---- scrolling names ---- */
+#define SCROLL_HOLD_MS  3000
+#define SCROLL_STEP_MS  400
+enum { SCROLL_HOLD_START, SCROLL_RUN, SCROLL_HOLD_END };
+
+void w_scroll_reset(w_scroll_t *s)
+{
+    s->key[0] = '\0';
+    s->pos = 0;
+}
+
+bool w_scroll_tick(w_scroll_t *s, const font_t *f, const char *text, int w, uint32_t now)
+{
+    if (!text) {
+        text = "";
+    }
+    if (strncmp(s->key, text, sizeof(s->key) - 1) != 0) {
+        snprintf(s->key, sizeof(s->key), "%s", text);
+        s->pos = 0;
+        s->state = SCROLL_HOLD_START;
+        s->at = now;
+        return true;
+    }
+    if (gfx_text_width(f, text) <= w) {
+        s->pos = 0;
+        return false;   /* fits: nothing to scroll */
+    }
+    int len = (int)strlen(text), max_pos = 0;
+    while (max_pos < len && gfx_text_width(f, text + max_pos) > w) {
+        max_pos++;
+    }
+    switch (s->state) {
+    case SCROLL_HOLD_START:
+        if (now - s->at >= SCROLL_HOLD_MS) {
+            s->state = SCROLL_RUN;
+            s->at = now;
+        }
+        return false;
+    case SCROLL_RUN:
+        if (now - s->at < SCROLL_STEP_MS) {
+            return false;
+        }
+        s->at = now;
+        if (s->pos < max_pos) {
+            s->pos++;
+        }
+        if (s->pos >= max_pos) {
+            s->state = SCROLL_HOLD_END;
+        }
+        return true;
+    default:   /* SCROLL_HOLD_END */
+        if (now - s->at < SCROLL_HOLD_MS) {
+            return false;
+        }
+        s->pos = 0;
+        s->state = SCROLL_HOLD_START;
+        s->at = now;
+        return true;
+    }
+}
+
+void w_text_scroll(gfx_t *g, const font_t *f, int x, int y, int w, const w_scroll_t *s, const char *text, uint16_t c)
+{
+    if (!text) {
+        return;
+    }
+    int len = (int)strlen(text);
+    int pos = (s && strncmp(s->key, text, sizeof(s->key) - 1) == 0 && s->pos < len) ? s->pos : 0;
+    /* only the characters that fit: a plain cut, no "..." */
+    char part[128];
+    int n = 0;
+    part[0] = '\0';
+    while (text[pos + n] && n < (int)sizeof(part) - 1) {
+        part[n] = text[pos + n];
+        part[n + 1] = '\0';
+        if (gfx_text_width(f, part) > w) {
+            part[n] = '\0';
+            break;
+        }
+        n++;
+    }
+    gfx_text(g, f, x, y, part, c);
 }

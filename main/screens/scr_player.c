@@ -60,9 +60,17 @@ static void find_index(void)
  * on by themselves always play */
 static bool s_want_play;   /* the last load was asked to play */
 
+/* a song name too long for the screen scrolls one character at a time (as the
+ * original firmware did) */
+#define NAME_W 308
+static w_scroll_t s_name;
+
 static void start(const char *path, uint32_t start_ms, bool autoplay)
 {
     s_want_play = autoplay;
+    w_scroll_reset(&s_name);
+    player_set_transpose(0);   /* every new song starts at normal tempo and pitch */
+    player_set_speed(100);
     snprintf(s_path, sizeof(s_path), "%s", path);
     find_index();
     s_title[0] = '\0';
@@ -208,8 +216,6 @@ static void enter(void *arg)
     s_skip_pending = s_all_bad = false;
     s_load_id = 0;
     apply_mode();
-    player_set_transpose(0);
-    player_set_speed(100);
     viz_set_caption(NULL);
     start(a->path, a->start_ms, g_settings.autoplay != 0);   /* Settings > Auto play */
 }
@@ -250,7 +256,15 @@ static void speed_change(int d)
 {
     player_status_t st;
     player_get_status(&st);
-    player_set_speed((uint16_t)(st.speed_pct + d * 5));
+    int v = st.speed_pct;
+    if (d > 1) {
+        v = (v / 50 + 1) * 50;         /* Shift +: up to the next 50, so 75 -> 100 */
+    } else if (d < -1) {
+        v = ((v - 1) / 50) * 50;       /* Shift -: down to the next 50, so 75 -> 50 */
+    } else {
+        v += d * 5;
+    }
+    player_set_speed((uint16_t)(v < 25 ? 25 : v));
     vTaskDelay(1);
 }
 
@@ -382,6 +396,9 @@ static void tick(uint32_t now)
 {
     player_status_t st;
     player_get_status(&st);
+    if (w_scroll_tick(&s_name, &font_large, path_name(s_path), NAME_W, now)) {
+        ui_invalidate();
+    }
     if (st.load_id != s_load_id && st.state >= PLAYER_STOPPED && st.state != PLAYER_ERROR) {
         s_load_id = st.load_id;
         player_lock();
@@ -474,7 +491,7 @@ static void draw(gfx_t *g)
         snprintf(line, sizeof(line), "%s", rel[0] ? rel : "/");
     }
     gfx_text_box(g, &font_small, 6, 22, 308, ALIGN_LEFT, line, C_DIM);
-    gfx_text_box(g, &font_large, 6, 36, 308, ALIGN_LEFT, path_name(s_path), C_TEXT);
+    w_text_scroll(g, &font_large, 6, 36, NAME_W, &s_name, path_name(s_path), C_TEXT);
 
     if (st.state == PLAYER_LOADING || st.state == PLAYER_EMPTY) {
         gfx_text_box(g, &font_main, 0, 110, g->w, ALIGN_CENTER, "Loading" UI_ELLIPSIS, C_DIM);

@@ -28,5 +28,19 @@ void w_scrollbar(gfx_t *g, int y, int h, int top, int rows, int count);
 void fmt_time(char *out, int n, uint32_t ms);
 void fmt_size(char *out, int n, uint64_t bytes);
 
+/* a name too long for its space scrolls one character at a time: hold the start 3 s,
+ * step every 0.4 s until the end shows, hold the end 3 s, then start again.
+ * Call w_scroll_tick from the screen's tick (it returns true when the text moved),
+ * and draw with w_text_scroll. A new text starts again from the beginning. */
+typedef struct {
+    char key[96];
+    int pos;
+    uint8_t state;
+    uint32_t at;
+} w_scroll_t;
+void w_scroll_reset(w_scroll_t *s);
+bool w_scroll_tick(w_scroll_t *s, const font_t *f, const char *text, int w, uint32_t now);
+void w_text_scroll(gfx_t *g, const font_t *f, int x, int y, int w, const w_scroll_t *s, const char *text, uint16_t c);
+
 /* internal: toast state, set by ui_toast */
 void w_toast_set(const char *text, uint32_t until_ms, int volume);

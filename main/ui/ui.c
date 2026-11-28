@@ -179,13 +179,14 @@ static void handle_key(const btn_event_t *e)
     const screen_t *s = ui_top();
     bool used = s && s->key && s->key(e);
     if (!used && !e->repeat) {
-        /* same as v1: 9 = next visualiser (Shift: previous), 10 = option, 11 = colour */
+        /* 9 = next visualiser, 10 = next option, 11 = next colour; with Shift each goes back */
+        int dir = e->shift ? -1 : 1;
         if (e->key == K_VIZ_L) {
-            viz_step(e->shift ? -1 : 1);
+            viz_step(dir);
         } else if (e->key == K_VIZ_M) {
-            viz_option();
+            viz_option(dir);
         } else if (e->key == K_VIZ_R) {
-            viz_colour();
+            viz_colour(dir);
         }
     }
     s_dirty = true;

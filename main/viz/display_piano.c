@@ -17,6 +17,9 @@ static uint8_t key_sharp_height = 50; //40; //54;
 static uint8_t side_padding = 0;
 static uint8_t top_padding = 0;
 static uint8_t notes_y_start = 0;
+#define NOTE_FONT   font_large   /* note names: about the height of the original 8x16 text */
+#define NOTE_BAR_Y  20           /* velocity bar, under the name */
+#define NOTE_ROW_H  (NOTE_BAR_Y + 4)
 #define background_color viz_bg(0)
 //static uint16_t key_on_color = 0xbfb8; //0x9593; //0xf9bc; //0xdedd; //0xc54e;
 
@@ -229,7 +232,7 @@ static void draw_keyboard(const midi_values_t *midi_values, bool update_notes_di
 			for (size_t i = notes_start; i < notes_start + notes_total && n < 24; i++) {
 				if (midi_values->note_values[i] > 0) {
 					snprintf(label[n], sizeof(label[n]), "%s%d", midi_notes[i].note, midi_notes[i].octave);
-					width[n] = gfx_text_width(&font_main, label[n]);
+					width[n] = gfx_text_width(&NOTE_FONT, label[n]);
 					if (width[n] < 15) {
 						width[n] = 15;   /* at least as wide as its velocity bar */
 					}
@@ -241,14 +244,14 @@ static void draw_keyboard(const midi_values_t *midi_values, bool update_notes_di
 			if (n > 0 && total <= VW - 8) {
 				int x = (VW - total) / 2;
 				for (int k = 0; k < n; k++) {
-					gfx_text_box(&g, &font_main, x, notes_y_start, width[k], ALIGN_CENTER, label[k], 0xFFFF);
-					draw_level_box(1, notes_y_start + 17, x + (width[k] - 15) / 2, midi_values->note_values[note[k]]);
+					gfx_text_box(&g, &NOTE_FONT, x, notes_y_start, width[k], ALIGN_CENTER, label[k], 0xFFFF);
+					draw_level_box(1, notes_y_start + NOTE_BAR_Y, x + (width[k] - 15) / 2, midi_values->note_values[note[k]]);
 					x += width[k] + 8;
 				}
 			} else if (n > 0) {
 				char many[24];
 				snprintf(many, sizeof(many), "%d notes", n);
-				gfx_text_box(&g, &font_main, 0, notes_y_start, VW, ALIGN_CENTER, many, viz_col(display_piano_key_on_color));
+				gfx_text_box(&g, &NOTE_FONT, 0, notes_y_start, VW, ALIGN_CENTER, many, viz_col(display_piano_key_on_color));
 			}
 		}
 		
@@ -289,7 +292,7 @@ static void draw_keyboard(const midi_values_t *midi_values, bool update_notes_di
 void display_piano_draw(const midi_values_t *midi_values, bool *key_on_fired, char *message, bool display_active) {
 	
 	
-	top_padding = (DISPLAY_2_HEIGHT - key_natural_height - (8 + 14) - 21 ) / 3;
+	top_padding = (DISPLAY_2_HEIGHT - key_natural_height - (8 + 14) - NOTE_ROW_H) / 3;
 	side_padding = (DISPLAY_2_WIDTH - (52 * 8)) / 2;
 	notes_y_start = key_natural_height + (8 + 14) + top_padding + top_padding;
 	

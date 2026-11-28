@@ -120,10 +120,10 @@ static const viz_t s_viz[] = {
     { "Staff",            false, 17, NULL,         s_channels, CK_CHAN,   d_staff, NULL, 0 },
     { "Chords",           false, 17, NULL,         s_channels, CK_COLOUR, d_chords, NULL, 0 },
     { "Piano Roll",       false, 3,  "Speed",      s_speed,    CK_BG,     d_roll, NULL, 0 },
-    { "Visualiser One",   true,  2,  "Blobs",      NULL,       CK_BG,     d_one, NULL, 0 },
-    { "Visualiser Two",   true,  2,  "Rings",      NULL,       CK_BG,     d_two, NULL, 0 },
-    { "Visualiser Three", true,  4,  "Shape",      s_shape3,   CK_BG,     d_three, NULL, 0 },
-    { "Visualiser Four",  true,  5,  "Shape",      s_shape4,   CK_NONE,   d_four, NULL, 0 },
+    { "Constellation",    true,  2,  "Blobs",      NULL,       CK_BG,     d_one, NULL, 0 },
+    { "Embers",           true,  2,  "Rings",      NULL,       CK_BG,     d_two, NULL, 0 },
+    { "Warp",             true,  4,  "Shape",      s_shape3,   CK_BG,     d_three, NULL, 0 },
+    { "Psychedelic",      true,  5,  "Shape",      s_shape4,   CK_NONE,   d_four, NULL, 0 },
     { "Pulse",            true,  5,  "Shape",      s_shape_pulse, CK_COLOUR, d_pulse, s_pulse_cols, 9 },
     { "Fireworks",        true,  2,  "Trails",     NULL,       CK_CHAN,   d_fireworks, NULL, 0 },
     { "Kaleidoscope",     true,  3,  "Slices",     s_slices,   CK_BG,     d_kaleido, NULL, 0 },
@@ -192,11 +192,11 @@ void viz_step(int dir)
     heading_name();
 }
 
-void viz_option(void)
+void viz_option(int dir)
 {
     int m = mode();
     const viz_t *v = &s_viz[m];
-    g_settings.viz_opt[m] = (uint8_t)((g_settings.viz_opt[m] + 1) % v->nopt);
+    g_settings.viz_opt[m] = (uint8_t)((g_settings.viz_opt[m] + v->nopt + (dir < 0 ? -1 : 1)) % v->nopt);
     settings_changed();
     int o = g_settings.viz_opt[m];
     char b[48];
@@ -235,7 +235,7 @@ static void choice_text(int m, int c, char *b, int n)
     }
 }
 
-void viz_colour(void)
+void viz_colour(int dir)
 {
     int m = mode();
     const viz_t *v = &s_viz[m];
@@ -244,9 +244,10 @@ void viz_colour(void)
         return;
     }
     int ncol = ncol_of(v);
-    int c = (g_settings.viz_col[m] + 1) % (ncol + 1);
+    int step = dir < 0 ? -1 : 1;
+    int c = (g_settings.viz_col[m] + ncol + 1 + step) % (ncol + 1);   /* the list, then Cycle */
     if (m == 0 && c == 7) {
-        c = ncol;   /* Piano: no White, the keys are white */
+        c = step > 0 ? ncol : 6;   /* Piano: no White, the keys are white */
     }
     g_settings.viz_col[m] = (uint8_t)c;
     settings_changed();

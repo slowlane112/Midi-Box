@@ -2,7 +2,7 @@
 #pragma once
 #include "ui.h"
 
-#define MIDIBOX_VERSION "2.1.1"
+#define MIDIBOX_VERSION "2.1.2"
 
 
 typedef struct {

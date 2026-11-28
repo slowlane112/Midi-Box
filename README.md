@@ -1,7 +1,5 @@
 # MIDI Box
 
-**Firmware 2.1.1**
-
 ![The MIDI Box: home screen and status](docs/midibox_home.png)
 
 The MIDI Box is a stand-alone music box built around an ESP32-S3 and a SAM2695 General MIDI synth.
@@ -39,8 +37,8 @@ The buttons do the same thing on every screen.
 | 2 / 3 | left of screen 1, the pair below it | Up / down (previous / next) |
 | 4 – 8 | the row of five under screen 1, left to right | Soft keys, labelled along the bottom of screen 1. 4 is always **Back**, 8 the main action |
 | 9 | under screen 2, left | Next visualiser on screen 2 (Shift + 9: previous) |
-| 10 | under screen 2, middle | Visualiser option (shape, speed, trails…) |
-| 11 | under screen 2, right | Visualiser colour |
+| 10 | under screen 2, middle | Next visualiser option: shape, speed, trails… (Shift + 10: previous) |
+| 11 | under screen 2, right | Next visualiser colour (Shift + 11: previous) |
 | 12 / 13 | right of the MIDI socket, top and bottom | Volume up / down, from any screen |
 
 Holding **button 1** while switching on puts the ESP32-S3 into programming mode (see
@@ -57,7 +55,7 @@ files, and make new folders.
 While a song plays, screen 1 shows the title, its place in the folder, the time, the tempo,
 transpose and sound bank, and a level meter for each of the 16 channels.
 
-![Playing a song in Shuffle, with Visualiser Two on screen 2](docs/midibox_player.png)
+![Playing a song in Shuffle, with Embers on screen 2](docs/midibox_player.png)
 
 - **Play modes** (Shift + 4): **Once**, **Repeat**, **Folder** (play the whole folder) and
   **Shuffle** (the folder in a random order).
@@ -132,7 +130,8 @@ gear.
 ## Visualisers
 
 Screen 2 shows the music while you play or listen. Button 9 steps through them, button 10 changes
-the option and button 11 the colour. Each one remembers its own settings.
+the option and button 11 the colour. Hold Shift (button 1) with any of the three to go back one.
+Each one remembers its own settings.
 
 | Visualiser | Button 10 | Button 11 |
 |---|---|---|
@@ -141,10 +140,10 @@ the option and button 11 the colour. Each one remembers its own settings.
 | **Staff**: the music scrolling on a grand staff | all channels or one | by channel or one colour |
 | **Chords**: the chord name, its notes and the progression | all channels or one | colour |
 | **Piano Roll**: notes scrolling past | speed | background |
-| **Visualiser One** | blobs on / off | background |
-| **Visualiser Two** | rings on / off | background |
-| **Visualiser Three** | shape | background |
-| **Visualiser Four** | shape | its own colours |
+| **Constellation**: a glowing orb for every note in a starry sky | blobs on / off | background |
+| **Embers**: sparks drift off every note, with turning rings behind | rings on / off | background |
+| **Warp**: a twisting tunnel, with shapes that change on the drums | shape | background |
+| **Psychedelic**: a swirling pattern with waves on the drums | shape | its own colours |
 | **Pulse**: flowing plasma with rings for each note | ring shape | colour or Rainbow |
 | **Fireworks**: a burst for every note under a starry sky | trails on / off | by channel or one colour |
 | **Kaleidoscope**: mirrored shards for every note, rings for the drums | 6 / 8 / 12 slices | background |
@@ -318,6 +317,8 @@ The KiCad project is in [`hardware/main_board/`](hardware/main_board/):
 | `midibox_main.kicad_pro` | the KiCad project with the track widths and clearances |
 | `BOM.csv` | the parts on the board |
 | `WIRING.md` | every connection, net by net |
+| `midibox_main_gerbers.zip` | the Gerber and drill files, ready to upload to a PCB maker |
+| `gerbers/` | the same Gerber and drill files, unzipped |
 
 It uses the same parts, the same connectors and the same pin order as the prototype-board build, so
 everything else in this guide applies to it. The four M2 holes are in the same places.
@@ -339,8 +340,8 @@ everything else in this guide applies to it. The four M2 holes are in the same p
 
 1. Open the project in KiCad and run **Inspect → Design Rules Checker** yourself.
 2. Compare each footprint with the parts you have, especially the ESP32-S3 board and Q1 (AO3401A).
-3. Make the Gerbers and drill files with **File → Fabrication Outputs**. The board is 2 layers,
-   90 × 70 mm, 1.6 mm thick.
+3. Upload `midibox_main_gerbers.zip` to a PCB maker: 2 layers, 90 × 70 mm, 1.6 mm thick. (If you
+   change the design, make new ones with **File → Fabrication Outputs**.)
 4. Please share what you find. Corrections will go into a tested version.
 
 ### Connecting the parts

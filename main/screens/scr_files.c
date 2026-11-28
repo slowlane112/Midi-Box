@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sd.h"
+#include "board.h"
 #include "settings.h"
 #include "theme.h"
 #include "widgets.h"
@@ -488,18 +489,38 @@ static void update_info(void)
     }
 }
 
+/* screen 2: the highlighted (or clipboard) name scrolls when it doesn't fit */
+static w_scroll_t s_name2;
+
+static const char *name2(void)
+{
+    if (s_clip.active) {
+        return path_name(s_clip.path);
+    }
+    const fs_entry_t *e = sel_entry();
+    return e ? e->name : NULL;
+}
+
+static void tick(uint32_t now)
+{
+    const char *n = name2();
+    if (n && w_scroll_tick(&s_name2, &font_large, n, LCD2_W - 12, now)) {
+        ui_invalidate();
+    }
+}
+
 static void draw2(gfx_t *g)
 {
     gfx_clear(g, C_BG);
     const fs_entry_t *e = sel_entry();
     w_header2(g, s_clip.active ? "Clipboard" : "Selected", NULL, C_DIM);
     if (s_clip.active) {
-        gfx_text_box(g, &font_large, 6, 18, g->w - 12, ALIGN_LEFT, path_name(s_clip.path), C_AMBER);
+        w_text_scroll(g, &font_large, 6, 18, g->w - 12, &s_name2, path_name(s_clip.path), C_AMBER);
         gfx_text_box(g, &font_main, 6, 48, g->w - 12, ALIGN_LEFT,
                      s_clip.move ? "Open a folder, then press Move (7)" : "Open a folder, then press Paste (7)", C_TEXT);
         gfx_text(g, &font_small, 6, 70, "Shift+7 clears the clipboard", C_DIM);
     } else if (e) {
-        gfx_text_box(g, &font_large, 6, 18, g->w - 12, ALIGN_LEFT, e->name, C_TEXT);
+        w_text_scroll(g, &font_large, 6, 18, g->w - 12, &s_name2, e->name, C_TEXT);
         char a[24], b[24];
         if (e->is_dir) {
             w_stat(g, 6, 44, 100, "Type", "Folder", C_TEXT);
@@ -530,5 +551,5 @@ static void draw2(gfx_t *g)
 static void resume(void) { ui_invalidate(); }
 
 const screen_t scr_files = {
-    .name = "files", .enter = enter, .resume = resume, .leave = leave, .key = key, .draw = draw, .draw2 = draw2,
+    .name = "files", .enter = enter, .resume = resume, .leave = leave, .key = key, .tick = tick, .draw = draw, .draw2 = draw2,
 };

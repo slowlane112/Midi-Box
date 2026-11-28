@@ -10,8 +10,8 @@
 void viz_init(void);
 void viz_draw(gfx_t *g);
 void viz_step(int dir);
-void viz_option(void);          /* button 10 */
-void viz_colour(void);          /* button 11 */
+void viz_option(int dir);       /* button 10: next option (dir 1) or previous (dir -1) */
+void viz_colour(int dir);       /* button 11: next colour (dir 1) or previous (dir -1) */
 const char *viz_name(void);
 const char *viz_heading(void);   /* the heading shown now ("" when none) */
 void viz_set_active(bool on);   /* a song is loaded / input is open (v1 "display active") */
